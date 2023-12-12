@@ -1,10 +1,12 @@
-let gridContainer = document.querySelector('#gridContainer')
-let clearGrid = document.querySelector('#clearGridButton')
+let gridContainer = document.querySelector('#gridContainer');
+let clearGrid = document.querySelector('#clearGridButton');
+let sizeButton = document.querySelector('#gridSizeButton');
 let isMouseDown = false;
-let i;
+
+
 // On load: create 256 (16x16) divs which will form the etch-a-sketch
 window.addEventListener('load', event => {
-    
+    let gridLength = 16
     for (i = 1; i<=256; i++) {
         let gridDiv = document.createElement(`div`);
         gridDiv.classList.add("gridItem");
@@ -13,7 +15,6 @@ window.addEventListener('load', event => {
         // Attach mousedown event to each grid item
         document.addEventListener('mousedown', handleDrag);
     }
-    
 })
 
 let handleDrag = event => {
@@ -43,9 +44,46 @@ let handleMouseUp = () => {
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseup', handleMouseUp);
 }
-
-clearGrid.addEventListener('click', () => {
-    document.querySelectorAll('.gridItem.drawOnGrid').forEach(item =>{
+// Function to clear drawing on etch-a-sketch
+let clearEtchASketch = () => {
+    document.querySelectorAll('.gridItem.drawOnGrid').forEach(item => {
         item.classList.remove('drawOnGrid');
     });
-});
+}
+
+let removeGrid = () => {
+    document.querySelectorAll('.gridItem').forEach(item => {
+        item.remove();
+    })
+}
+
+
+
+// Event listener for clearing the etch-a-sketch
+clearGrid.addEventListener('click', clearEtchASketch);
+
+// Event listener for changing grid size
+sizeButton.addEventListener('click', () => {
+    let gridLength = prompt('What number of squares per side would you like? The more squares, the more detailed your sketch! Max 100. ');
+    // Checks if user cancels the prompt, if it's an empty string or not a number
+    if (gridLength === null || gridLength.trim() === '' || gridLength.typeof !== Number) {
+        // Cancels the operation
+        return;
+    }
+    // Grid size min and max size handling
+    if (gridLength > 100 || gridLength < 10) { 
+        gridLength = prompt('Please pick a number between 10 and 100.');
+    }
+    let gridSize = gridLength ** 2;
+    removeGrid();
+    document.documentElement.style.setProperty('--gridLength', gridLength);
+    for (i = 1; i<=gridSize; i++) {
+        let gridDiv = document.createElement(`div`);
+        gridDiv.classList.add("gridItem");
+        gridDiv.id = `grid${i}`;
+        gridContainer.appendChild(gridDiv);
+        // Attach mousedown event to each grid item
+        document.addEventListener('mousedown', handleDrag);
+    }
+    console.log(gridSize);
+})
