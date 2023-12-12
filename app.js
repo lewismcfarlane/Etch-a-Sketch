@@ -1,19 +1,20 @@
 let gridContainer = document.querySelector('#gridContainer')
-
+let clearGrid = document.querySelector('#clearGridButton')
+let isMouseDown = false;
+let i;
 // On load: create 256 (16x16) divs which will form the etch-a-sketch
 window.addEventListener('load', event => {
     
-    for (let i = 1; i<=256; i++) {
+    for (i = 1; i<=256; i++) {
         let gridDiv = document.createElement(`div`);
         gridDiv.classList.add("gridItem");
         gridDiv.id = `grid${i}`;
         gridContainer.appendChild(gridDiv);
         // Attach mousedown event to each grid item
-        gridDiv.addEventListener('mousedown', handleDrag);
+        document.addEventListener('mousedown', handleDrag);
     }
+    
 })
-
-let isMouseDown = false;
 
 let handleDrag = event => {
     // Mouse button is down
@@ -42,3 +43,9 @@ let handleMouseUp = () => {
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseup', handleMouseUp);
 }
+
+clearGrid.addEventListener('click', () => {
+    document.querySelectorAll('.gridItem.drawOnGrid').forEach(item =>{
+        item.classList.remove('drawOnGrid');
+    });
+});
