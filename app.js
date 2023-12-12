@@ -62,6 +62,7 @@ clearGrid.addEventListener('click', clearEtchASketch);
 
 // Event listener for changing grid size
 sizeButton.addEventListener('click', () => {
+    alert('Warning: changing stencil size deletes your current drawing!')
     let gridLength = prompt('Choose a stencil size between 10 and 100!');
     // Checks if user cancels the prompt, if it's an empty string or not a number
     if (gridLength === null || gridLength.trim() === '') {
