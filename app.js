@@ -70,7 +70,7 @@ sizeButton.addEventListener('click', () => {
         return;
     }
 
-    // Grid size min and max size handling AND non number entries handling
+    // Grid size min and max size handling
     if (gridLength > 100 || gridLength < 10 ) { 
         gridLength = prompt('Please pick a size between 10 and 100.');
     }
