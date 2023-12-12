@@ -70,12 +70,8 @@ sizeButton.addEventListener('click', () => {
     }
 
     // Grid size min and max size handling AND non number entries handling
-    if (gridLength > 100 || gridLength < 10 || typeof gridLength !== 'number' ) { 
+    if (gridLength > 100 || gridLength < 10 ) { 
         gridLength = prompt('Please pick a number between 10 and 100.');
-        if (gridLength === null || gridLength.trim() === '' 
-        || typeof gridLength !== 'number') {
-            return;
-        }
     }
     let gridSize = gridLength ** 2;
     removeGrid();
