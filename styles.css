@@ -1,0 +1,29 @@
+:root {
+    --gridLength: 16;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#gridContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 500px;
+    margin: 32px;
+    border: 16px solid darkgrey;
+}
+
+.gridItem {
+    flex: 0 0 calc(100% / var(--gridLength));
+    aspect-ratio: 1;
+    background-color: white;
+}
+
+.gridItem.drawOnGrid {
+    background-color: black;
+}
