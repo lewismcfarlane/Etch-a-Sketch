@@ -62,7 +62,7 @@ clearGrid.addEventListener('click', clearEtchASketch);
 
 // Event listener for changing grid size
 sizeButton.addEventListener('click', () => {
-    let gridLength = prompt('What number of squares per side would you like? The more squares, the more detailed your sketch! Max 100. ');
+    let gridLength = prompt('Choose a stencil size between 10 and 100!');
     // Checks if user cancels the prompt, if it's an empty string or not a number
     if (gridLength === null || gridLength.trim() === '') {
         // Cancels the operation
@@ -71,7 +71,7 @@ sizeButton.addEventListener('click', () => {
 
     // Grid size min and max size handling AND non number entries handling
     if (gridLength > 100 || gridLength < 10 ) { 
-        gridLength = prompt('Please pick a number between 10 and 100.');
+        gridLength = prompt('Please pick a size between 10 and 100.');
     }
     let gridSize = gridLength ** 2;
     removeGrid();
