@@ -57,8 +57,6 @@ let removeGrid = () => {
     })
 }
 
-
-
 // Event listener for clearing the etch-a-sketch
 clearGrid.addEventListener('click', clearEtchASketch);
 
@@ -66,24 +64,29 @@ clearGrid.addEventListener('click', clearEtchASketch);
 sizeButton.addEventListener('click', () => {
     let gridLength = prompt('What number of squares per side would you like? The more squares, the more detailed your sketch! Max 100. ');
     // Checks if user cancels the prompt, if it's an empty string or not a number
-    if (gridLength === null || gridLength.trim() === '' || gridLength.typeof !== Number) {
+    if (gridLength === null || gridLength.trim() === '') {
         // Cancels the operation
         return;
     }
-    // Grid size min and max size handling
-    if (gridLength > 100 || gridLength < 10) { 
+
+    // Grid size min and max size handling AND non number entries handling
+    if (gridLength > 100 || gridLength < 10 || typeof gridLength !== 'number' ) { 
         gridLength = prompt('Please pick a number between 10 and 100.');
+        if (gridLength === null || gridLength.trim() === '' 
+        || typeof gridLength !== 'number') {
+            return;
+        }
     }
     let gridSize = gridLength ** 2;
     removeGrid();
     document.documentElement.style.setProperty('--gridLength', gridLength);
+    // Same logic as in on load event listener to create grid
     for (i = 1; i<=gridSize; i++) {
         let gridDiv = document.createElement(`div`);
         gridDiv.classList.add("gridItem");
         gridDiv.id = `grid${i}`;
         gridContainer.appendChild(gridDiv);
-        // Attach mousedown event to each grid item
         document.addEventListener('mousedown', handleDrag);
     }
-    console.log(gridSize);
+    
 })
