@@ -1,6 +1,6 @@
 :root {
     --gridLength: 16;
-    --randomColor: rgb(0, 0, 0);
+    --color: rgb(0, 0, 0);
 }
 
 
@@ -41,5 +41,5 @@ body {
 }
 
 .gridItem.drawOnGrid {
-    background-color: var(--randomColor);
+    background-color: var(--color);
 }
