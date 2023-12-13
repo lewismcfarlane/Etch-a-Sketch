@@ -4,6 +4,8 @@ let sizeButton = document.querySelector('#gridSizeButton');
 let isMouseDown = false;
 
 
+
+
 // On load: create 256 (16x16) divs which will form the etch-a-sketch
 window.addEventListener('load', event => {
     let gridLength = 16
@@ -13,8 +15,10 @@ window.addEventListener('load', event => {
         gridDiv.id = `grid${i}`;
         gridContainer.appendChild(gridDiv);
         // Attach mousedown event to each grid item
-        document.addEventListener('mousedown', handleDrag);
+       
+
     }
+    document.addEventListener('mousedown', handleDrag);
 })
 
 let handleDrag = event => {
@@ -23,7 +27,7 @@ let handleDrag = event => {
     // Draws on the div grid square
     if (event.target.classList.contains('gridItem')) {
         // Sets the colour
-        event.target.style.setProperty('--randomColor', getRandomColor());
+        event.target.style.setProperty('--color', getColorChoice());
         event.target.classList.add('drawOnGrid');
     }
     // Add mouseup and mousemove event listeners
@@ -36,21 +40,11 @@ let handleMouseMove = (event) => {
     // Draws on grid if entering a new grid
     if (isMouseDown && event.target.classList.contains('gridItem')) {
         // Sets the colour
-        event.target.style.setProperty('--randomColor', getRandomColor());
+        let color = getColorChoice();
+        event.target.style.setProperty('--color', color);
         event.target.classList.add('drawOnGrid');
     }
 };
-
-
-
-
-
-
-
-
-
-
-
 
 // function to respond to left mouse button not being pressed
 let handleMouseUp = () => {
@@ -63,6 +57,7 @@ let handleMouseUp = () => {
 let clearEtchASketch = () => {
     document.querySelectorAll('.gridItem.drawOnGrid').forEach(item => {
         item.classList.remove('drawOnGrid');
+
     });
 }
 
@@ -79,7 +74,7 @@ clearGrid.addEventListener('click', clearEtchASketch);
 sizeButton.addEventListener('click', () => {
     alert('Warning: changing stencil size deletes your current drawing!')
     let gridLength = prompt('Choose a stencil size between 10 and 100!');
-    // Checks if user cancels the prompt, if it's an empty string or not a number
+    // Checks if user cancels the prompt, if it's an empty string
     if (gridLength === null || gridLength.trim() === '') {
         // Cancels the operation
         return;
@@ -104,7 +99,6 @@ sizeButton.addEventListener('click', () => {
 })
 
 // Function to get a random colour
-
 let getRandomColor = () => {
     let randomColor = () => Math.floor(Math.random()*256);
     let red = randomColor();
@@ -113,4 +107,21 @@ let getRandomColor = () => {
     return `rgb(${red}, ${green}, ${blue})`
 }
 
-
+// Function to choose colour
+let getColorChoice = () => {
+    let isRadioChecked = (colorId) => {
+        let radio = document.getElementById(colorId);
+        return radio.querySelector('input').checked;
+    }
+    // Array to store colour names
+    const colorNames = ['black', 'white', 'red', 'blue', 'green', 'pink', 'yellow', 'orange', 'random'];
+    //
+    for (const color of colorNames) {
+        if (isRadioChecked(color)) {
+           if (color === 'random') {
+            return getRandomColor();
+           } else return color;
+        }
+    }
+   
+}
