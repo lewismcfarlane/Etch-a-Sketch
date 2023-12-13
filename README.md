@@ -12,5 +12,5 @@ To clear the canvas, click 'Reset canvas'.
 
 ## Upcoming Features
 
-- Add new colours to choose from
+- Add shading feature
 - Add export drawing functionality
