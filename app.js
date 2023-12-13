@@ -22,6 +22,8 @@ let handleDrag = event => {
     isMouseDown = true;
     // Draws on the div grid square
     if (event.target.classList.contains('gridItem')) {
+        // Sets the colour
+        event.target.style.setProperty('--randomColor', getRandomColor());
         event.target.classList.add('drawOnGrid');
     }
     // Add mouseup and mousemove event listeners
@@ -33,9 +35,22 @@ let handleDrag = event => {
 let handleMouseMove = (event) => {
     // Draws on grid if entering a new grid
     if (isMouseDown && event.target.classList.contains('gridItem')) {
+        // Sets the colour
+        event.target.style.setProperty('--randomColor', getRandomColor());
         event.target.classList.add('drawOnGrid');
     }
 };
+
+
+
+
+
+
+
+
+
+
+
 
 // function to respond to left mouse button not being pressed
 let handleMouseUp = () => {
@@ -87,3 +102,15 @@ sizeButton.addEventListener('click', () => {
     }
     
 })
+
+// Function to get a random colour
+
+let getRandomColor = () => {
+    let randomColor = () => Math.floor(Math.random()*256);
+    let red = randomColor();
+    let green = randomColor();
+    let blue = randomColor();
+    return `rgb(${red}, ${green}, ${blue})`
+}
+
+

@@ -1,5 +1,6 @@
 :root {
     --gridLength: 16;
+    --randomColor: rgb(0, 0, 0);
 }
 
 
@@ -7,6 +8,21 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#headerButtonPanel {
+    display: flex;
+    height: 75px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#colorList {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    justify-content: space-between;
 }
 
 #gridContainer {
@@ -25,5 +41,5 @@ body {
 }
 
 .gridItem.drawOnGrid {
-    background-color: black;
+    background-color: var(--randomColor);
 }
